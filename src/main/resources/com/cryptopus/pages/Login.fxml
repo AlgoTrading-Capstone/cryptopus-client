@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.cryptopus.pages.LoginController"
+           styleClass="app-background">
+
+    <children>
+        <VBox alignment="TOP_CENTER"
+              spacing="10">
+            <padding>
+                <Insets top="50" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <ImageView fitWidth="250"
+                       preserveRatio="true"
+                       cache="true">
+                <image>
+                    <Image url="@/com/cryptopus/assets/images/cryptopus-logo-lime.png"/>
+                </image>
+            </ImageView>
+
+            <Label text="Cryptopus" styleClass="login-brand-title"/>
+        </VBox>
+    </children>
+
+</StackPane>
