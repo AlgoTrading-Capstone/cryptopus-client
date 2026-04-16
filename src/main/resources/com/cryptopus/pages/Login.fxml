@@ -1,34 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
 <StackPane xmlns="http://javafx.com/javafx/21"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.cryptopus.pages.LoginController"
-           styleClass="app-background">
+           styleClass="app-background"
+           stylesheets="@LoginStyles.css">
 
-    <children>
-        <VBox alignment="TOP_CENTER"
-              spacing="10">
-            <padding>
-                <Insets top="50" right="20" bottom="20" left="20"/>
-            </padding>
+    <VBox alignment="TOP_CENTER">
+        <padding>
+            <Insets top="50" right="20" bottom="20" left="20"/>
+        </padding>
 
-            <ImageView fitWidth="250"
-                       preserveRatio="true"
-                       cache="true">
-                <image>
-                    <Image url="@/com/cryptopus/assets/images/cryptopus-logo-lime.png"/>
-                </image>
-            </ImageView>
+        <ImageView fitWidth="250"
+                   preserveRatio="true"
+                   cache="true">
+            <Image url="@/com/cryptopus/assets/images/cryptopus-logo-lime.png"/>
+        </ImageView>
 
-            <Label text="Cryptopus" styleClass="login-brand-title"/>
-        </VBox>
-    </children>
+        <Label text="Cryptopus" styleClass="login-brand-title">
+            <VBox.margin>
+                <Insets bottom="50"/>
+            </VBox.margin>
+        </Label>
 
+        <StackPane styleClass="auth-card"
+                   maxWidth="600">
+
+            <!-- Credentials view -->
+            <VBox fx:id="credentialsPane"
+                  alignment="CENTER"
+                  spacing="20"
+                  maxWidth="500">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <Label text="Login" styleClass="heading-lg"/>
+
+                <GridPane hgap="15" vgap="15">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="90" prefWidth="90"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Email"
+                           styleClass="text-md"
+                           GridPane.rowIndex="0"
+                           GridPane.columnIndex="0"/>
+
+                    <TextField fx:id="emailField"
+                               promptText="Enter your email"
+                               GridPane.rowIndex="0"
+                               GridPane.columnIndex="1"/>
+
+                    <Label text="Password"
+                           styleClass="text-md"
+                           GridPane.rowIndex="1"
+                           GridPane.columnIndex="0"/>
+
+                    <PasswordField fx:id="passwordField"
+                                   promptText="Enter your password"
+                                   GridPane.rowIndex="1"
+                                   GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <Hyperlink fx:id="forgotPasswordLink"
+                           text="Forgot password?"
+                           styleClass="secondary-link"/>
+
+                <Button fx:id="loginButton"
+                        text="Login"
+                        maxWidth="Infinity"
+                        maxHeight="90"
+                        styleClass="primary-button"/>
+
+                <Label fx:id="loginStatusLabel"
+                       text=""
+                       wrapText="true"
+                       managed="false"
+                       visible="false"
+                       styleClass="auth-status-label"/>
+
+                <HBox alignment="CENTER" spacing="1">
+
+                    <Label text="Not registered yet?"
+                           styleClass="text-md"/>
+
+                    <Hyperlink fx:id="signUpLink"
+                               text="Sign up"
+                               styleClass="primary-link"/>
+                </HBox>
+            </VBox>
+
+            <!-- OTP view -->
+            <VBox fx:id="otpPane"
+                  alignment="TOP_CENTER"
+                  spacing="18"
+                  maxWidth="380"
+                  prefWidth="380"
+                  visible="false"
+                  managed="false">
+                <padding>
+                    <Insets top="28" right="28" bottom="28" left="28"/>
+                </padding>
+
+                <Label text="OTP Verification" styleClass="auth-title"/>
+
+                <Label text="Enter the 6-digit code from your authenticator app."
+                       wrapText="true"
+                       styleClass="auth-secondary-text"/>
+
+                <HBox alignment="CENTER" spacing="10" styleClass="otp-container">
+                    <TextField fx:id="otpField1" styleClass="otp-box"/>
+                    <TextField fx:id="otpField2" styleClass="otp-box"/>
+                    <TextField fx:id="otpField3" styleClass="otp-box"/>
+                    <TextField fx:id="otpField4" styleClass="otp-box"/>
+                    <TextField fx:id="otpField5" styleClass="otp-box"/>
+                    <TextField fx:id="otpField6" styleClass="otp-box"/>
+                </HBox>
+
+                <Hyperlink fx:id="backToLoginLink"
+                           text="Back to login"
+                           styleClass="auth-link"/>
+
+                <Label fx:id="otpStatusLabel"
+                       text=""
+                       wrapText="true"
+                       managed="false"
+                       visible="false"
+                       styleClass="auth-status-label"/>
+            </VBox>
+
+        </StackPane>
+    </VBox>
 </StackPane>

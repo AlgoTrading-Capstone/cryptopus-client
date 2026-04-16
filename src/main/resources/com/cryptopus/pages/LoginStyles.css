@@ -1,0 +1,7 @@
+.auth-card {
+    -fx-background-color: -dark1;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-width: 2;
+    -fx-border-color: -dark2;
+}

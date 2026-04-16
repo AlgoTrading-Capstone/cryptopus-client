@@ -1,5 +1,7 @@
 package com.cryptopus;
 
+import com.cryptopus.auth.AuthService;
+import com.cryptopus.auth.SessionManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +26,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        // Initialize the shared auth service so it registers its token-refresh hook
+        // on the ApiClient before any controller issues HTTP calls.
+        AuthService.get();
+
         // Load the initial login screen from FXML
         Parent root = FXMLLoader.load(
                 getClass().getResource("/com/cryptopus/pages/Login.fxml")
@@ -62,15 +68,27 @@ public class Main extends Application {
     }
 
     /**
-     * Loads application fonts from the resources folder.
+     * Loads all application fonts from the resources folder.
      */
     private void loadAppFonts() {
-        Font.loadFont(
-                Objects.requireNonNull(
-                        getClass().getResourceAsStream("/com/cryptopus/assets/fonts/conthrax-sb.ttf")
-                ),
-                14
-        );
+        final String basePath = "/com/cryptopus/assets/fonts/";
+
+        Font.loadFont(getClass().getResourceAsStream(basePath + "conthrax-sb.ttf"), 14);
+        Font.loadFont(getClass().getResourceAsStream(basePath + "ClashGrotesk-Extralight.otf"), 14);
+        Font.loadFont(getClass().getResourceAsStream(basePath + "ClashGrotesk-Light.otf"), 14);
+        Font.loadFont(getClass().getResourceAsStream(basePath + "ClashGrotesk-Regular.otf"), 14);
+        Font.loadFont(getClass().getResourceAsStream(basePath + "ClashGrotesk-Medium.otf"), 14);
+        Font.loadFont(getClass().getResourceAsStream(basePath + "ClashGrotesk-Semibold.otf"), 14);
+        Font.loadFont(getClass().getResourceAsStream(basePath + "ClashGrotesk-Bold.otf"), 14);
+    }
+
+    /**
+     * Invoked by JavaFX when the application is shutting down.
+     * Wipes every in-memory authentication artifact so no token outlives the process.
+     */
+    @Override
+    public void stop() {
+        SessionManager.get().clear();
     }
 
     public static void main(String[] args) {

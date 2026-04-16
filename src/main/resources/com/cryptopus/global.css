@@ -3,8 +3,88 @@
     -dark1: #0F0F0F;
     -dark2: #171717;
     -dark3: #2E2E2E;
+
     -lime: #A9F00F;
+    -limeDark: #8DC80D;
+
     -silver: #EDEDED;
+    -silverDark: #C6C6C6;
+
+    -error: #BD4242
+}
+
+/* ================= Labels ================= */
+
+.heading-lg {
+    -fx-font-family: "ConthraxSb-Regular";
+    -fx-font-size: 28px;
+    -fx-text-fill: -silver;
+}
+.text-md {
+    -fx-font-family: "Clash Grotesk Regular";
+    -fx-font-size: 16px;
+    -fx-text-fill: -silver;
+}
+.text-sm {
+    -fx-font-family: "Clash Grotesk Regular";
+    -fx-font-size: 13px;
+    -fx-text-fill: -silver;
+}
+
+/* ================= Input Fields ================= */
+
+.text-input,
+.password-field,
+.text-area {
+    -fx-background-color: -silver;
+    -fx-text-fill: -dark1;
+    -fx-background-radius: 8;
+    -fx-border-width: 0;
+    -fx-padding: 10 12 10 12;
+    -fx-font-family: "Clash Grotesk Regular";
+    -fx-font-size: 16px;
+    -fx-prompt-text-fill: -dark3;
+}
+
+.text-input.error,
+.password-field.error {
+    -fx-prompt-text-fill: -error;
+}
+
+/* ================= Buttons ================= */
+
+.primary-button {
+    -fx-background-color: -lime;
+    -fx-text-fill: -dark1;
+    -fx-background-radius: 8;
+    -fx-border-width: 0;
+    -fx-padding: 10;
+    -fx-font-family: "Clash Grotesk Semibold";
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+}
+.primary-button:hover {
+    -fx-background-color: -limeDark;
+}
+
+/* ================= Links ================= */
+
+.primary-link {
+    -fx-font-family: "Clash Grotesk Regular";
+    -fx-font-size: 16px;
+    -fx-text-fill: -lime;
+}
+.primary-link:hover {
+    -fx-text-fill: -limeDark;
+}
+
+.secondary-link {
+    -fx-font-family: "Clash Grotesk Regular";
+    -fx-font-size: 16px;
+    -fx-text-fill: -silver;
+}
+.secondary-link:hover {
+    -fx-text-fill: -silverDark;
 }
 
 .app-background {
