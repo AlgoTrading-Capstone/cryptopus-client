@@ -4,6 +4,8 @@ import com.cryptopus.auth.AuthService;
 import com.cryptopus.auth.SessionManager;
 import com.cryptopus.auth.dto.LoginResponse;
 import com.cryptopus.auth.dto.OtpVerifyResponse;
+import com.cryptopus.nav.Page;
+import com.cryptopus.nav.Router;
 import com.cryptopus.net.ApiException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -33,31 +35,49 @@ public class LoginController {
             Pattern.compile("^[\\w.+-]+@[\\w-]+(\\.[\\w-]+)+$");
 
     // --- Credentials pane ---
-    @FXML private VBox credentialsPane;
-    @FXML private TextField emailField;
-    @FXML private PasswordField passwordField;
-    @FXML private Button loginButton;
-    @FXML private Label loginStatusLabel;
-    @FXML private Hyperlink forgotPasswordLink;
-    @FXML private Hyperlink signUpLink;
+    @FXML
+    private VBox credentialsPane;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Button loginButton;
+    @FXML
+    private Label loginStatusLabel;
+    @FXML
+    private Hyperlink forgotPasswordLink;
+    @FXML
+    private Hyperlink signUpLink;
 
     // --- OTP pane ---
-    @FXML private VBox otpPane;
-    @FXML private TextField otpField1;
-    @FXML private TextField otpField2;
-    @FXML private TextField otpField3;
-    @FXML private TextField otpField4;
-    @FXML private TextField otpField5;
-    @FXML private TextField otpField6;
-    @FXML private Hyperlink backToLoginLink;
-    @FXML private Label otpStatusLabel;
+    @FXML
+    private VBox otpPane;
+    @FXML
+    private TextField otpField1;
+    @FXML
+    private TextField otpField2;
+    @FXML
+    private TextField otpField3;
+    @FXML
+    private TextField otpField4;
+    @FXML
+    private TextField otpField5;
+    @FXML
+    private TextField otpField6;
+    @FXML
+    private Hyperlink backToLoginLink;
+    @FXML
+    private Label otpStatusLabel;
 
     private List<TextField> otpFields;
 
     private final AuthService auth = AuthService.get();
     private final SessionManager session = SessionManager.get();
 
-    /** Guard against double-submission when all 6 digits are entered very quickly. */
+    /**
+     * Guard against double-submission when all 6 digits are entered very quickly.
+     */
     private final AtomicBoolean otpSubmitting = new AtomicBoolean(false);
 
     @FXML
@@ -69,6 +89,7 @@ public class LoginController {
         passwordField.setOnAction(e -> handleLogin());
 
         backToLoginLink.setOnAction(e -> switchToCredentials());
+        signUpLink.setOnAction(e -> Router.get().goTo(Page.SIGNUP_STEP_1));
 
         configureOtpFields();
     }
@@ -251,23 +272,23 @@ public class LoginController {
 
     private String mapLoginError(Throwable err) {
         Throwable t = unwrap(err);
-        if (t instanceof ApiException.UnauthorizedException)       return "Invalid email or password.";
-        if (t instanceof ApiException.ValidationException ve)      return friendly(ve, "Invalid credentials.");
-        if (t instanceof ApiException.NotFoundException)           return "Login service is unavailable.";
-        if (t instanceof ApiException.ConflictException c)         return friendly(c, "Request conflict.");
-        if (t instanceof ApiException.ServerException)             return "Server error. Please try again later.";
-        if (t instanceof ApiException.NetworkException ne)         return friendly(ne, "Cannot reach the server.");
+        if (t instanceof ApiException.UnauthorizedException) return "Invalid email or password.";
+        if (t instanceof ApiException.ValidationException ve) return friendly(ve, "Invalid credentials.");
+        if (t instanceof ApiException.NotFoundException) return "Login service is unavailable.";
+        if (t instanceof ApiException.ConflictException c) return friendly(c, "Request conflict.");
+        if (t instanceof ApiException.ServerException) return "Server error. Please try again later.";
+        if (t instanceof ApiException.NetworkException ne) return friendly(ne, "Cannot reach the server.");
         if (t instanceof ApiException.UnexpectedResponseException) return "Unexpected server response.";
         return "Unexpected error. Please try again.";
     }
 
     private String mapOtpError(Throwable err) {
         Throwable t = unwrap(err);
-        if (t instanceof ApiException.UnauthorizedException)       return "Incorrect or expired OTP code.";
-        if (t instanceof ApiException.ValidationException ve)      return friendly(ve, "Incorrect OTP code.");
-        if (t instanceof ApiException.NotFoundException)           return "Login session not found. Please log in again.";
-        if (t instanceof ApiException.ServerException)             return "Server error. Please try again later.";
-        if (t instanceof ApiException.NetworkException ne)         return friendly(ne, "Cannot reach the server.");
+        if (t instanceof ApiException.UnauthorizedException) return "Incorrect or expired OTP code.";
+        if (t instanceof ApiException.ValidationException ve) return friendly(ve, "Incorrect OTP code.");
+        if (t instanceof ApiException.NotFoundException) return "Login session not found. Please log in again.";
+        if (t instanceof ApiException.ServerException) return "Server error. Please try again later.";
+        if (t instanceof ApiException.NetworkException ne) return friendly(ne, "Cannot reach the server.");
         if (t instanceof ApiException.UnexpectedResponseException) return "Unexpected server response.";
         return "Unexpected error. Please try again.";
     }
@@ -280,7 +301,7 @@ public class LoginController {
     private static Throwable unwrap(Throwable t) {
         while (t != null && t.getCause() != null
                 && (t instanceof java.util.concurrent.CompletionException
-                    || t instanceof java.util.concurrent.ExecutionException)) {
+                || t instanceof java.util.concurrent.ExecutionException)) {
             t = t.getCause();
         }
         return t;

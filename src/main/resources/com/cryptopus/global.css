@@ -20,6 +20,11 @@
     -fx-font-size: 28px;
     -fx-text-fill: -silver;
 }
+.text-lg {
+    -fx-font-family: "Clash Grotesk Regular";
+    -fx-font-size: 19px;
+    -fx-text-fill: -silver;
+}
 .text-md {
     -fx-font-family: "Clash Grotesk Regular";
     -fx-font-size: 16px;
@@ -29,6 +34,22 @@
     -fx-font-family: "Clash Grotesk Regular";
     -fx-font-size: 13px;
     -fx-text-fill: -silver;
+}
+
+.text-lg-strong {
+    -fx-font-family: "Clash Grotesk Medium";
+    -fx-font-size: 19px;
+    -fx-text-fill: -lime;
+}
+.text-md-strong {
+    -fx-font-family: "Clash Grotesk Medium";
+    -fx-font-size: 16px;
+    -fx-text-fill: -lime;
+}
+.text-md-error {
+    -fx-font-family: "Clash Grotesk Medium";
+    -fx-font-size: 16px;
+    -fx-text-fill: -error;
 }
 
 /* ================= Input Fields ================= */
@@ -45,10 +66,68 @@
     -fx-font-size: 16px;
     -fx-prompt-text-fill: -dark3;
 }
-
 .text-input.error,
 .password-field.error {
     -fx-prompt-text-fill: -error;
+}
+
+.combo-box {
+    -fx-background-color: -silver;
+    -fx-background-radius: 8;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+.combo-box > .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -dark1;
+    -fx-padding: 10 12 10 12;
+    -fx-font-family: "Clash Grotesk Regular";
+    -fx-font-size: 16px;
+}
+.combo-box > .list-cell:empty {
+    -fx-text-fill: -dark3;
+}
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0 8 8 0;
+    -fx-padding: 0 10 0 6;
+}
+.combo-box .arrow {
+    -fx-background-color: -dark3;
+}
+.combo-box-popup .list-view {
+    -fx-background-color: -silver;
+    -fx-background-radius: 8;
+    -fx-border-width: 0;
+    -fx-padding: 4;
+    -fx-cursor: hand;
+}
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -dark1;
+    -fx-padding: 8 12 8 12;
+    -fx-font-family: "Clash Grotesk Regular";
+    -fx-font-size: 16px;
+    -fx-background-radius: 4;
+}
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: -lime;
+    -fx-text-fill: -dark1;
+}
+.combo-box-popup .list-view .list-cell:filled:selected {
+    -fx-background-color: -limeDark;
+    -fx-text-fill: -dark1;
+}
+.combo-box-popup .list-view .scroll-bar {
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+.combo-box.error > .list-cell {
+    -fx-text-fill: -error;
 }
 
 /* ================= Buttons ================= */
@@ -60,11 +139,25 @@
     -fx-border-width: 0;
     -fx-padding: 10;
     -fx-font-family: "Clash Grotesk Semibold";
-    -fx-font-size: 20px;
+    -fx-font-size: 19px;
     -fx-cursor: hand;
 }
 .primary-button:hover {
     -fx-background-color: -limeDark;
+}
+
+.secondary-button {
+    -fx-background-color: -silver;
+    -fx-text-fill: -dark1;
+    -fx-background-radius: 8;
+    -fx-border-width: 0;
+    -fx-padding: 10;
+    -fx-font-family: "Clash Grotesk Semibold";
+    -fx-font-size: 19px;
+    -fx-cursor: hand;
+}
+.secondary-button:hover {
+    -fx-background-color: -silverDark;
 }
 
 /* ================= Links ================= */
@@ -99,4 +192,12 @@
     -fx-font-family: "ConthraxSb-Regular";
     -fx-font-size: 60px;
     -fx-font-weight: normal;
+}
+
+.main-card {
+    -fx-background-color: -dark1;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-width: 2;
+    -fx-border-color: -dark2;
 }

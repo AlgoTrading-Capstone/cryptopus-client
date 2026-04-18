@@ -2,17 +2,17 @@ package com.cryptopus;
 
 import com.cryptopus.auth.AuthService;
 import com.cryptopus.auth.SessionManager;
+import com.cryptopus.nav.Page;
+import com.cryptopus.nav.Router;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * Entry point of the Cryptopus Client application.
@@ -30,20 +30,21 @@ public class Main extends Application {
         // on the ApiClient before any controller issues HTTP calls.
         AuthService.get();
 
-        // Load the initial login screen from FXML
-        Parent root = FXMLLoader.load(
-                getClass().getResource("/com/cryptopus/pages/Login.fxml")
-        );
-
-        // Initial scene size (used as fallback before maximization)
-        Scene scene = new Scene(root, 1200, 800, false, SceneAntialiasing.BALANCED);
-
+        // Load fonts before any FXML is parsed so its styles resolve correctly.
         loadAppFonts();
 
-        // Apply global stylesheet
+        // Create the primary scene with a throwaway placeholder root; the
+        // Router immediately replaces it with the real login page below.
+        Scene scene = new Scene(new StackPane(), 1200, 800, false, SceneAntialiasing.BALANCED);
+
+        // Apply the global stylesheet before the first page loads so its
+        // styles are available on initial render.
         scene.getStylesheets().add(
                 getClass().getResource("/com/cryptopus/global.css").toExternalForm()
         );
+
+        // Bind the router to the primary scene and navigate to the login page.
+        Router.get().init(scene).goTo(Page.LOGIN);
 
         // Set window title
         primaryStage.setTitle("Cryptopus");

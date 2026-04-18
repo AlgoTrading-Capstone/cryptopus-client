@@ -12,7 +12,7 @@ public final class ApiConfig {
     private ApiConfig() {
     }
 
-    public static final String BASE_URL = "http://127.0.0.1:8000";
+    public static final String BASE_URL = "http://localhost:8000";
 
     public static final Duration CONNECT_TIMEOUT = Duration.ofSeconds(10);
     public static final Duration REQUEST_TIMEOUT = Duration.ofSeconds(20);
@@ -21,4 +21,5 @@ public final class ApiConfig {
     public static final String AUTH_LOGIN      = "/api/auth/login";
     public static final String AUTH_VERIFY_OTP = "/api/auth/verify-otp";
     public static final String AUTH_REFRESH    = "/api/auth/refresh";
+    public static final String AUTH_REGISTER   = "/api/auth/register";
 }

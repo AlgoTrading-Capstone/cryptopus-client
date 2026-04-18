@@ -28,7 +28,7 @@
         <ImageView fitWidth="250"
                    preserveRatio="true"
                    cache="true">
-            <Image url="@/com/cryptopus/assets/images/cryptopus-logo-lime.png"/>
+            <Image url="@/com/cryptopus/assets/images/cryptopus-logo-lime-lg.png"/>
         </ImageView>
 
         <Label text="Cryptopus" styleClass="login-brand-title">
@@ -37,7 +37,7 @@
             </VBox.margin>
         </Label>
 
-        <StackPane styleClass="auth-card"
+        <StackPane styleClass="main-card"
                    maxWidth="600">
 
             <!-- Credentials view -->
@@ -91,9 +91,9 @@
                 <Label fx:id="loginStatusLabel"
                        text=""
                        wrapText="true"
-                       managed="false"
                        visible="false"
-                       styleClass="auth-status-label"/>
+                       managed="false"
+                       styleClass="text-md-error"/>
 
                 <HBox alignment="CENTER" spacing="1">
 
@@ -108,23 +108,22 @@
 
             <!-- OTP view -->
             <VBox fx:id="otpPane"
-                  alignment="TOP_CENTER"
-                  spacing="18"
-                  maxWidth="380"
-                  prefWidth="380"
+                  alignment="CENTER"
+                  spacing="20"
+                  maxWidth="500"
                   visible="false"
                   managed="false">
                 <padding>
-                    <Insets top="28" right="28" bottom="28" left="28"/>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
 
-                <Label text="OTP Verification" styleClass="auth-title"/>
+                <Label text="OTP Verification" styleClass="heading-lg"/>
 
-                <Label text="Enter the 6-digit code from your authenticator app."
+                <Label text="Enter the 6-digit code from your authenticator app:"
                        wrapText="true"
-                       styleClass="auth-secondary-text"/>
+                       styleClass="text-md"/>
 
-                <HBox alignment="CENTER" spacing="10" styleClass="otp-container">
+                <HBox alignment="CENTER" spacing="20">
                     <TextField fx:id="otpField1" styleClass="otp-box"/>
                     <TextField fx:id="otpField2" styleClass="otp-box"/>
                     <TextField fx:id="otpField3" styleClass="otp-box"/>
@@ -133,16 +132,16 @@
                     <TextField fx:id="otpField6" styleClass="otp-box"/>
                 </HBox>
 
-                <Hyperlink fx:id="backToLoginLink"
-                           text="Back to login"
-                           styleClass="auth-link"/>
-
                 <Label fx:id="otpStatusLabel"
                        text=""
                        wrapText="true"
-                       managed="false"
                        visible="false"
-                       styleClass="auth-status-label"/>
+                       managed="false"
+                       styleClass="text-md-error"/>
+
+                <Hyperlink fx:id="backToLoginLink"
+                           text="Back to login"
+                           styleClass="primary-link"/>
             </VBox>
 
         </StackPane>

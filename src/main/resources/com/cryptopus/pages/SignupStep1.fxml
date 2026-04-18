@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.ComboBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.cryptopus.pages.SignupStep1Controller"
+           styleClass="app-background"
+           stylesheets="@SignupStep1Styles.css">
+
+    <VBox alignment="TOP_CENTER">
+        <padding>
+            <Insets top="50" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <HBox alignment="CENTER" spacing="20">
+
+            <ImageView fitWidth="120"
+                       preserveRatio="true"
+                       cache="true">
+                <Image url="@/com/cryptopus/assets/images/cryptopus-logo-lime-md.png"/>
+            </ImageView>
+
+            <VBox alignment="CENTER_LEFT" spacing="-10">
+                <Label text="Welcome to" styleClass="heading-lg"/>
+                <Label text="Cryptopus" styleClass="login-brand-title"/>
+            </VBox>
+            <VBox.margin>
+                <Insets bottom="40"/>
+            </VBox.margin>
+        </HBox>
+        <VBox.margin>
+            <Insets bottom="50"/>
+        </VBox.margin>
+
+        <StackPane styleClass="main-card" maxWidth="800">
+
+            <VBox alignment="TOP_CENTER" spacing="20" maxWidth="700">
+                <padding>
+                    <Insets top="20" right="20" bottom="30" left="20"/>
+                </padding>
+
+                <Label text="Create your account" styleClass="heading-lg"/>
+
+                <HBox alignment="CENTER" spacing="3">
+                    <Label text="Step 1 of 4:" styleClass="text-lg-strong"/>
+                    <Label text="Enter your personal details. All fields are required." styleClass="text-lg"/>
+                </HBox>
+
+                <VBox spacing="20">
+
+                    <!-- Row 1: First name | Last name -->
+                    <HBox spacing="15">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="First name" styleClass="text-md"/>
+                            <TextField fx:id="firstNameField" promptText="First name"/>
+                        </VBox>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Last name" styleClass="text-md"/>
+                            <TextField fx:id="lastNameField" promptText="Last name"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Row 2: Date of birth (DD / MM / YYYY) | inline error -->
+                    <GridPane hgap="15">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+
+                        <VBox spacing="6"
+                              GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Date of birth" styleClass="text-md"/>
+                            <HBox spacing="10">
+                                <TextField fx:id="dobDayField" promptText="DD" styleClass="dob-field"
+                                           maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                                <TextField fx:id="dobMonthField" promptText="MM" styleClass="dob-field"
+                                           maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                                <TextField fx:id="dobYearField" promptText="YYYY" styleClass="dob-field"
+                                           maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                            </HBox>
+                        </VBox>
+
+                        <VBox alignment="CENTER"
+                              GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label fx:id="dobErrorLabel"
+                                   text=""
+                                   wrapText="true"
+                                   visible="false"
+                                   managed="false"
+                                   styleClass="text-md-error"/>
+                        </VBox>
+                    </GridPane>
+
+                    <!-- Row 3: Email | Phone number -->
+                    <HBox spacing="15">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Email" styleClass="text-md"/>
+                            <TextField fx:id="emailField" promptText="you@example.com"/>
+                        </VBox>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Phone number" styleClass="text-md"/>
+                            <TextField fx:id="phoneField" promptText="+1 555 123 4567"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Row 4: Address | City -->
+                    <HBox spacing="15">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Address" styleClass="text-md"/>
+                            <TextField fx:id="addressField" promptText="Street and house number"/>
+                        </VBox>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="City" styleClass="text-md"/>
+                            <TextField fx:id="cityField" promptText="City"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Row 5: Country | Postal code -->
+                    <GridPane hgap="15">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+
+                        <VBox spacing="6"
+                              GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Country" styleClass="text-md"/>
+                            <ComboBox fx:id="countryCombo"
+                                      promptText="Country"
+                                      visibleRowCount="8"
+                                      maxWidth="Infinity"/>
+                        </VBox>
+
+                        <VBox spacing="6"
+                              GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Postal code" styleClass="text-md"/>
+                            <TextField fx:id="postalCodeField" promptText="Postal code"/>
+                        </VBox>
+                    </GridPane>
+
+                    <!-- Row 6: Password | Confirm password -->
+                    <HBox spacing="15">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Password" styleClass="text-md"/>
+                            <PasswordField fx:id="passwordField" promptText="8+ chars, uppercase, number, symbol"/>
+                        </VBox>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Confirm password" styleClass="text-md"/>
+                            <PasswordField fx:id="confirmPasswordField" promptText="Repeat your password"/>
+                        </VBox>
+                    </HBox>
+
+                </VBox>
+
+                <Label fx:id="statusLabel"
+                       text=""
+                       wrapText="true"
+                       visible="false"
+                       managed="false"
+                       styleClass="text-md-error"/>
+
+                <HBox spacing="15" alignment="CENTER">
+                    <VBox.margin>
+                        <Insets top="25"/>
+                    </VBox.margin>
+                    <Button fx:id="backButton"
+                            text="Back"
+                            prefWidth="140"
+                            contentDisplay="LEFT"
+                            alignment="CENTER_LEFT"
+                            graphicTextGap="5"
+                            styleClass="secondary-button">
+                        <graphic>
+                            <ImageView preserveRatio="true">
+                                <Image url="@/com/cryptopus/assets/icons/arrow-back-dark1.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="nextButton"
+                            text="Next Step"
+                            prefWidth="140"
+                            contentDisplay="RIGHT"
+                            alignment="CENTER_RIGHT"
+                            graphicTextGap="5"
+                            styleClass="primary-button">
+                        <graphic>
+                            <ImageView preserveRatio="true">
+                                <Image url="@/com/cryptopus/assets/icons/arrow-forward-dark1.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+
+        </StackPane>
+    </VBox>
+</StackPane>

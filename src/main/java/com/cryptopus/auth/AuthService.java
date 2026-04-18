@@ -6,6 +6,8 @@ import com.cryptopus.auth.dto.OtpVerifyRequest;
 import com.cryptopus.auth.dto.OtpVerifyResponse;
 import com.cryptopus.auth.dto.RefreshRequest;
 import com.cryptopus.auth.dto.RefreshResponse;
+import com.cryptopus.auth.dto.RegisterRequest;
+import com.cryptopus.auth.dto.RegisterResponse;
 import com.cryptopus.config.ApiConfig;
 import com.cryptopus.net.ApiClient;
 import com.cryptopus.net.ApiException;
@@ -89,6 +91,19 @@ public final class AuthService {
                                 "Could not refresh session.", null);
                     }
                 });
+    }
+
+    /**
+     * Registers a new user account. This endpoint is unauthenticated and
+     * returns the server-assigned {@code user_id} on 201. Tokens are not
+     * issued here — the client continues through the rest of the signup
+     * flow and logs in separately.
+     */
+    public CompletableFuture<RegisterResponse> register(RegisterRequest request) {
+        return api.post(ApiConfig.AUTH_REGISTER,
+                        request,
+                        RegisterResponse.class,
+                        false);
     }
 
     public void logout() {

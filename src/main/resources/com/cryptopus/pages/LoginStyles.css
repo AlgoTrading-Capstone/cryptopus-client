@@ -1,7 +1,12 @@
-.auth-card {
-    -fx-background-color: -dark1;
-    -fx-background-radius: 18;
-    -fx-border-radius: 18;
-    -fx-border-width: 2;
-    -fx-border-color: -dark2;
+.otp-box {
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-font-family: "Clash Grotesk Semibold";
+    -fx-font-size: 24px;
+    -fx-display-caret: false;
+}
+.otp-box:focused {
+    -fx-border-color: -lime;
+    -fx-border-width: 4;
+    -fx-border-radius: 8;
 }
