@@ -1,0 +1,30 @@
+/* ServerStatusIndicator.css
+ * Scoped styles for the shared traffic-light server-status indicator.
+ * Animation (opacity pulse) is driven from the controller via a Timeline;
+ * CSS here only owns fill colors and the soft glow.
+ */
+
+.status-indicator-card {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-border-color: -dark3;
+}
+
+/* --- Dot: red (disconnected) --- */
+.status-dot--red {
+    -fx-fill: -error;
+    -fx-effect: dropshadow(gaussian, rgba(189, 66, 66, 0.55), 8, 0.3, 0, 0);
+}
+
+/* --- Dot: yellow (connecting) --- */
+.status-dot--yellow {
+    -fx-fill: -warning;
+    -fx-effect: dropshadow(gaussian, rgba(232, 185, 60, 0.6), 10, 0.35, 0, 0);
+}
+
+/* --- Dot: green (connected) --- */
+.status-dot--green {
+    -fx-fill: -lime;
+    -fx-effect: dropshadow(gaussian, rgba(169, 240, 15, 0.55), 10, 0.35, 0, 0);
+}

@@ -21,6 +21,13 @@
            styleClass="app-background"
            stylesheets="@SignupStep1Styles.css">
 
+    <fx:include source="/com/cryptopus/shared/ServerStatusIndicator.fxml"
+                StackPane.alignment="TOP_RIGHT">
+        <StackPane.margin>
+            <Insets top="20" right="20"/>
+        </StackPane.margin>
+    </fx:include>
+
     <VBox alignment="TOP_CENTER">
         <padding>
             <Insets top="50" right="20" bottom="20" left="20"/>

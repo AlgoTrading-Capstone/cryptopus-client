@@ -10,7 +10,8 @@
     -silver: #EDEDED;
     -silverDark: #C6C6C6;
 
-    -error: #BD4242
+    -error: #BD4242;
+    -warning: #E8B93C;
 }
 
 /* ================= Labels ================= */

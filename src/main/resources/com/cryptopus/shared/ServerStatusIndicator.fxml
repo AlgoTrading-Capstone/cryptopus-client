@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+
+<HBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="root"
+      fx:controller="com.cryptopus.shared.health.ServerStatusIndicatorController"
+      styleClass="main-card, status-indicator-card"
+      stylesheets="@ServerStatusIndicator.css"
+      alignment="CENTER_LEFT"
+      spacing="10"
+      maxWidth="-Infinity"
+      maxHeight="-Infinity">
+    <padding>
+        <Insets top="8" right="14" bottom="8" left="14"/>
+    </padding>
+
+    <Circle fx:id="statusDot" radius="7"/>
+
+    <Label fx:id="statusLabel"
+           text=""
+           styleClass="text-md"/>
+</HBox>

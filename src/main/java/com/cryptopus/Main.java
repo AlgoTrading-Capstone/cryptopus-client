@@ -4,6 +4,7 @@ import com.cryptopus.auth.AuthService;
 import com.cryptopus.auth.SessionManager;
 import com.cryptopus.nav.Page;
 import com.cryptopus.nav.Router;
+import com.cryptopus.shared.health.HealthService;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
@@ -29,6 +30,10 @@ public class Main extends Application {
         // Initialize the shared auth service so it registers its token-refresh hook
         // on the ApiClient before any controller issues HTTP calls.
         AuthService.get();
+
+        // Start the background server-health poller so the shared traffic-light
+        // indicator on the Login / Signup pages has fresh state before render.
+        HealthService.get().start();
 
         // Load fonts before any FXML is parsed so its styles resolve correctly.
         loadAppFonts();
@@ -89,6 +94,7 @@ public class Main extends Application {
      */
     @Override
     public void stop() {
+        HealthService.get().shutdown();
         SessionManager.get().clear();
     }
 

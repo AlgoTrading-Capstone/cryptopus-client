@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="root"
+      fx:controller="com.cryptopus.shared.version.VersionIndicatorController"
+      alignment="BOTTOM_LEFT"
+      spacing="2"
+      maxWidth="-Infinity"
+      maxHeight="-Infinity">
+
+    <Label fx:id="clientVersionLabel"
+           text=""
+           styleClass="text-md"/>
+
+    <Label fx:id="serverVersionLabel"
+           text=""
+           styleClass="text-md"/>
+</VBox>
