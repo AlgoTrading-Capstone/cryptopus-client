@@ -287,10 +287,9 @@ public class SignupStep3Controller {
      */
     private void showSuccessModal() {
         ModalService.get().show(
+                ModalType.SUCCESS,
                 "Registration completed successfully!",
                 "Your account is now secured. We recommend connecting your Kraken trading account next so you can continue the setup process.",
-                "check-circle-lime",
-                ModalType.SUCCESS,
                 "Connect Kraken",
                 () -> {
                     // TODO: navigate to the Kraken connection page once it exists.

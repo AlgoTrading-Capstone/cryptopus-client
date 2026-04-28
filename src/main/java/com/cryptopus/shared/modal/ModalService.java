@@ -64,30 +64,16 @@ public final class ModalService {
     // -----------------------------------------------------------------------
 
     /**
-     * Shows a neutral modal (no icon animation) with only a primary button.
+     * Shows a modal with only a primary button. The {@code type} drives both
+     * the icon and its entrance animation (pass {@link ModalType#NONE} for
+     * an icon-less modal).
      */
-    public void show(String title,
+    public void show(ModalType type,
+                     String title,
                      String message,
-                     String iconName,
                      String primaryText,
                      Runnable primaryAction) {
-        show(title, message, iconName, ModalType.NONE,
-                primaryText, primaryAction, null, null);
-    }
-
-    /**
-     * Shows a neutral modal (no icon animation) with primary + optional
-     * secondary buttons.
-     */
-    public void show(String title,
-                     String message,
-                     String iconName,
-                     String primaryText,
-                     Runnable primaryAction,
-                     String secondaryText,
-                     Runnable secondaryAction) {
-        show(title, message, iconName, ModalType.NONE,
-                primaryText, primaryAction, secondaryText, secondaryAction);
+        show(type, title, message, primaryText, primaryAction, null, null);
     }
 
     /**
@@ -95,19 +81,19 @@ public final class ModalService {
      * When {@code secondaryText} is {@code null} or blank, the secondary
      * button is hidden and the layout adapts.
      *
-     * <p>The {@code type} drives a one-shot icon animation (see
-     * {@link IconAnimations}) that plays once after the modal fade-in.
-     * Pass {@link ModalType#NONE} to disable it.</p>
+     * <p>The {@code type} drives the icon ({@code success.png} / {@code
+     * error.png} / {@code warning.png}) and its one-shot entrance animation
+     * (see {@link IconAnimations}). Use {@link ModalType#NONE} for an
+     * icon-less modal.</p>
      *
-     * <p>Button actions receive no arguments and must call
-     * {@link #close()} themselves if they want to dismiss the modal — this
-     * keeps the behavior explicit at the call site (e.g. an action might
-     * navigate without closing, or close before navigating).</p>
+     * <p>Button actions receive no arguments and must call {@link #close()}
+     * themselves if they want to dismiss the modal — this keeps the behavior
+     * explicit at the call site (e.g. an action might navigate without
+     * closing, or close before navigating).</p>
      */
-    public void show(String title,
+    public void show(ModalType type,
+                     String title,
                      String message,
-                     String iconName,
-                     ModalType type,
                      String primaryText,
                      Runnable primaryAction,
                      String secondaryText,
@@ -135,9 +121,17 @@ public final class ModalService {
 
         controller.setTitle(title);
         controller.setMessage(message);
-        controller.setIcon(iconName);
+        controller.setIcon(iconNameFor(effectiveType));
         controller.configurePrimary(primaryText, primaryAction);
         controller.configureSecondary(secondaryText, secondaryAction);
+
+        // Put the icon into its pre-entrance state synchronously, before the
+        // modal becomes visible, so it never flashes at rest for one frame.
+        if (controller.iconView() != null
+                && controller.iconView().isVisible()
+                && controller.iconView().getImage() != null) {
+            IconAnimations.prepare(effectiveType, controller.iconView());
+        }
 
         // Block clicks on the backdrop (non-dismissible by default).
         controller.backdrop().addEventFilter(MouseEvent.MOUSE_CLICKED, MouseEvent::consume);
@@ -182,25 +176,30 @@ public final class ModalService {
         ParallelTransition open = new ParallelTransition(fade, scale);
         open.setOnFinished(e -> {
             controller.primaryButton().requestFocus();
-            // One-shot icon animation, aligned to end of fade-in. Skipped when
-            // no icon is rendered (e.g. type=NONE or iconName=null).
+            // Icon entrance animation. Skipped when no icon is rendered.
             if (effectiveType != ModalType.NONE
                     && controller.iconView() != null
                     && controller.iconView().isVisible()
                     && controller.iconView().getImage() != null) {
-                playIconAnimation(effectiveType, controller.iconView());
+                IconAnimations.play(effectiveType, controller.iconView());
             }
         });
         open.play();
     }
 
-    private static void playIconAnimation(ModalType type, javafx.scene.Node icon) {
-        switch (type) {
-            case SUCCESS -> IconAnimations.playSuccess(icon);
-            case ERROR   -> IconAnimations.playError(icon);
-            case WARNING -> IconAnimations.playWarning(icon);
-            case NONE    -> { /* no-op */ }
-        }
+    /**
+     * Maps a {@link ModalType} to the filename (without extension) of its
+     * corresponding icon under {@code /com/cryptopus/assets/icons/}. Returns
+     * {@code null} for {@link ModalType#NONE} so the controller collapses
+     * the icon slot.
+     */
+    private static String iconNameFor(ModalType type) {
+        return switch (type) {
+            case SUCCESS -> "success";
+            case ERROR   -> "error";
+            case WARNING -> "warning";
+            case NONE    -> null;
+        };
     }
 
     /**

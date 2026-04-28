@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    Internal-only modal design playground. Lets a developer trigger every
+    modal variant without navigating through the signup flow. Not linked
+    from any real page; reachable only via a dev shortcut in Main.
+-->
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.cryptopus.pages.ModalTestController"
+           styleClass="app-background">
+
+    <VBox alignment="CENTER" spacing="20" maxWidth="700">
+        <padding>
+            <Insets top="50" right="50" bottom="50" left="50"/>
+        </padding>
+
+        <VBox alignment="CENTER" spacing="3">
+            <Label text="Modal Design Playground" styleClass="heading-lg"/>
+            <Label text="Internal-only. Trigger each modal variant to iterate on visuals and animation."
+                   styleClass="text-md"
+                   wrapText="true"/>
+        </VBox>
+
+        <StackPane styleClass="main-card" maxWidth="700">
+            <VBox alignment="CENTER" spacing="20">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <Label text="Pick a modal type" styleClass="text-lg-strong"/>
+
+                <HBox alignment="CENTER" spacing="20">
+                    <Button fx:id="successButton"
+                            text="Success"
+                            prefWidth="150"
+                            styleClass="secondary-button"/>
+                    <Button fx:id="errorButton"
+                            text="Error"
+                            prefWidth="150"
+                            styleClass="secondary-button"/>
+                    <Button fx:id="warningButton"
+                            text="Warning"
+                            prefWidth="150"
+                            styleClass="secondary-button"/>
+                    <Button fx:id="noneButton"
+                            text="None"
+                            prefWidth="150"
+                            styleClass="secondary-button"/>
+                </HBox>
+
+                <Label text="Each button opens a sample modal using the shared ModalService."
+                       styleClass="text-md"
+                       wrapText="true"/>
+            </VBox>
+        </StackPane>
+    </VBox>
+</StackPane>

@@ -12,7 +12,10 @@ public enum Page {
     LOGIN("/com/cryptopus/pages/Login.fxml"),
     SIGNUP_STEP_1("/com/cryptopus/pages/SignupStep1.fxml"),
     SIGNUP_STEP_2("/com/cryptopus/pages/SignupStep2.fxml"),
-    SIGNUP_STEP_3("/com/cryptopus/pages/SignupStep3.fxml");
+    SIGNUP_STEP_3("/com/cryptopus/pages/SignupStep3.fxml"),
+
+    /** Internal-only design/testing playground for modal dialogs. */
+    MODAL_TEST("/com/cryptopus/pages/ModalTest.fxml");
 
     private final String fxmlPath;
 
