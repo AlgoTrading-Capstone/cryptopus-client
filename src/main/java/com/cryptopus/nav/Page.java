@@ -11,10 +11,8 @@ public enum Page {
 
     LOGIN("/com/cryptopus/pages/Login.fxml"),
     SIGNUP_STEP_1("/com/cryptopus/pages/SignupStep1.fxml"),
-
-    // Planned, not yet implemented. Kept here so the router contract is
-    // already wired for the rest of the signup flow.
-    SIGNUP_STEP_2(null);
+    SIGNUP_STEP_2("/com/cryptopus/pages/SignupStep2.fxml"),
+    SIGNUP_STEP_3("/com/cryptopus/pages/SignupStep3.fxml");
 
     private final String fxmlPath;
 

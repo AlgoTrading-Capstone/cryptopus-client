@@ -18,10 +18,13 @@ public final class ApiConfig {
     public static final Duration REQUEST_TIMEOUT = Duration.ofSeconds(20);
 
     // --- Auth endpoints ---
-    public static final String AUTH_LOGIN      = "/api/auth/login";
-    public static final String AUTH_VERIFY_OTP = "/api/auth/verify-otp";
-    public static final String AUTH_REFRESH    = "/api/auth/refresh";
-    public static final String AUTH_REGISTER   = "/api/auth/register";
+    public static final String AUTH_LOGIN        = "/api/auth/login";
+    public static final String AUTH_VERIFY_OTP   = "/api/auth/verify-otp";
+    public static final String AUTH_REFRESH      = "/api/auth/refresh";
+    public static final String AUTH_REGISTER     = "/api/auth/register";
+    public static final String AUTH_VERIFY_EMAIL = "/api/auth/verify-email";
+    public static final String AUTH_SETUP_OTP    = "/api/auth/setup-otp";
+    public static final String AUTH_VERIFY_OTP_SETUP = "/api/auth/verify-otp-setup";
 
     // --- System endpoints ---
     public static final String SYSTEM_HEALTH   = "/api/health";

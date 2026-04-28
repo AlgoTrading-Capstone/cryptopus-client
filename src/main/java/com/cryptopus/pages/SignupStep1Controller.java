@@ -272,13 +272,16 @@ public class SignupStep1Controller {
     }
 
     private void onRegisterSuccess(RegisterResponse resp) {
-        if (resp == null || resp.getUserId() == null) {
+        if (resp == null || resp.getUserId() == null || resp.getEmail() == null) {
             showStatus("Unexpected response from server.", true);
             return;
         }
-        // TODO: advance to the next signup state once it exists:
-        //     Router.get().goTo(Page.SIGNUP_STEP_2);
-        showStatus("Account created. Next step coming soon.", false);
+        // Hand the server-confirmed email to Step 2 via the Router's
+        // controller-initializer hook, so the verify-email page owns its
+        // context without any shared module state.
+        final String email = resp.getEmail();
+        Router.get().goTo(Page.SIGNUP_STEP_2,
+                (SignupStep2Controller c) -> c.setEmail(email));
     }
 
     // -----------------------------------------------------------------------

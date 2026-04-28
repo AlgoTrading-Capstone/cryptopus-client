@@ -173,6 +173,8 @@ public final class ApiClient {
                     friendlyOr(r.serverError, "Not found."), r.serverError);
             case 409 -> r.failure = new ApiException.ConflictException(
                     friendlyOr(r.serverError, "Conflict."), r.serverError);
+            case 410 -> r.failure = new ApiException.GoneException(
+                    friendlyOr(r.serverError, "Resource no longer available."), r.serverError);
             default -> {
                 if (r.status >= 500) {
                     r.failure = new ApiException.ServerException(

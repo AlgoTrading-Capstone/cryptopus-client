@@ -30,7 +30,7 @@
 
     <VBox alignment="TOP_CENTER">
         <padding>
-            <Insets top="50" right="20" bottom="20" left="20"/>
+            <Insets top="50" right="50" bottom="100" left="50"/>
         </padding>
 
         <HBox alignment="CENTER" spacing="20">
@@ -53,7 +53,7 @@
             <Insets bottom="50"/>
         </VBox.margin>
 
-        <StackPane styleClass="main-card" maxWidth="800">
+        <StackPane styleClass="main-card" maxWidth="800" VBox.vgrow="ALWAYS">
 
             <VBox alignment="TOP_CENTER" spacing="20" maxWidth="700">
                 <padding>
@@ -63,7 +63,7 @@
                 <Label text="Create your account" styleClass="heading-lg"/>
 
                 <HBox alignment="CENTER" spacing="3">
-                    <Label text="Step 1 of 4:" styleClass="text-lg-strong"/>
+                    <Label text="Step 1 of 3:" styleClass="text-lg-strong"/>
                     <Label text="Enter your personal details. All fields are required." styleClass="text-lg"/>
                 </HBox>
 
@@ -177,16 +177,16 @@
                        text=""
                        wrapText="true"
                        visible="false"
-                       managed="false"
+                       managed="true"
                        styleClass="text-md-error"/>
 
+                <!-- Flexible spacer -->
+                <Region VBox.vgrow="ALWAYS"/>
+
                 <HBox spacing="15" alignment="CENTER">
-                    <VBox.margin>
-                        <Insets top="25"/>
-                    </VBox.margin>
                     <Button fx:id="backButton"
-                            text="Back"
-                            prefWidth="140"
+                            text="Back to Login"
+                            prefWidth="170"
                             contentDisplay="LEFT"
                             alignment="CENTER_LEFT"
                             graphicTextGap="5"
@@ -200,7 +200,7 @@
                     <Region HBox.hgrow="ALWAYS"/>
                     <Button fx:id="nextButton"
                             text="Next Step"
-                            prefWidth="140"
+                            prefWidth="170"
                             contentDisplay="RIGHT"
                             alignment="CENTER_RIGHT"
                             graphicTextGap="5"

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * Minimal scene-root based navigator.
@@ -51,7 +52,28 @@ public final class Router {
      * Runs synchronously on the JavaFX application thread.
      */
     public void goTo(Page page) {
+        goTo(page, c -> { /* no controller initialization needed */ });
+    }
+
+    /**
+     * Loads the FXML for {@code page}, invokes {@code onControllerReady} with
+     * the freshly-created controller (before the root is attached to the
+     * scene, so side-effects like focus requests happen only after the page is
+     * actually visible would need deferring), then swaps in the new root.
+     *
+     * <p>This is the standard JavaFX parameter-passing mechanism: the caller
+     * pushes data onto the next page's controller in-line with navigation,
+     * so transient flow data never needs to live in module-level state.</p>
+     *
+     * <p>Example:</p>
+     * <pre>{@code
+     *   Router.get().goTo(Page.SIGNUP_STEP_2,
+     *       (SignupStep2Controller c) -> c.setEmail(email));
+     * }</pre>
+     */
+    public <C> void goTo(Page page, Consumer<C> onControllerReady) {
         Objects.requireNonNull(page, "page");
+        Objects.requireNonNull(onControllerReady, "onControllerReady");
         if (scene == null) {
             throw new IllegalStateException("Router.init(scene) must be called before goTo(...).");
         }
@@ -61,10 +83,14 @@ public final class Router {
                     "Page " + page + " has no FXML associated with it yet.");
         }
         try {
-            Parent root = FXMLLoader.load(
+            FXMLLoader loader = new FXMLLoader(
                     Objects.requireNonNull(
                             Router.class.getResource(path),
                             "FXML resource not found: " + path));
+            Parent root = loader.load();
+            @SuppressWarnings("unchecked")
+            C controller = (C) loader.getController();
+            onControllerReady.accept(controller);
             scene.setRoot(root);
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to load FXML for page " + page, e);

@@ -1,12 +1,18 @@
-.otp-box {
+.code-box {
     -fx-alignment: center;
-    -fx-padding: 10;
+    -fx-pref-width: 60;
+    -fx-max-width: 60;
+    -fx-pref-height: 60;
     -fx-font-family: "Clash Grotesk Semibold";
     -fx-font-size: 24px;
     -fx-display-caret: false;
 }
-.otp-box:focused {
+.code-box:focused {
     -fx-border-color: -lime;
     -fx-border-width: 4;
     -fx-border-radius: 8;
+}
+
+.text-lg-strong.expired {
+    -fx-text-fill: -error;
 }

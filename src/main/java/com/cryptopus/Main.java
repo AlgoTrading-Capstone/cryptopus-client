@@ -4,6 +4,8 @@ import com.cryptopus.auth.AuthService;
 import com.cryptopus.auth.SessionManager;
 import com.cryptopus.nav.Page;
 import com.cryptopus.nav.Router;
+import com.cryptopus.pages.SignupStep2Controller;
+import com.cryptopus.pages.SignupStep3Controller;
 import com.cryptopus.shared.health.HealthService;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -48,8 +50,15 @@ public class Main extends Application {
                 getClass().getResource("/com/cryptopus/global.css").toExternalForm()
         );
 
-        // Bind the router to the primary scene and navigate to the login page.
-        Router.get().init(scene).goTo(Page.LOGIN);
+        // Bind the router to the primary scene
+        Router.get().init(scene);
+
+        // --- DEV SHORTCUT ---
+
+        //Router.get().goTo(Page.LOGIN);
+        //Router.get().goTo(Page.SIGNUP_STEP_1);
+        //Router.get().goTo(Page.SIGNUP_STEP_2, (SignupStep2Controller c) -> c.setEmail("dev@cryptopus.local"));
+        Router.get().goTo(Page.SIGNUP_STEP_3, (SignupStep3Controller c) -> c.setEmail("dev@cryptopus.local"));
 
         // Set window title
         primaryStage.setTitle("Cryptopus");

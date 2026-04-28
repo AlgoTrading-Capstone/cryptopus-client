@@ -53,6 +53,11 @@ public class ApiException extends RuntimeException {
         public ConflictException(String msg, String serverError) { super(msg, 409, serverError); }
     }
 
+    /** 410 – resource gone / no longer available (e.g. expired verification code). */
+    public static class GoneException extends ApiException {
+        public GoneException(String msg, String serverError) { super(msg, 410, serverError); }
+    }
+
     /** 5xx – server-side error. */
     public static class ServerException extends ApiException {
         public ServerException(String msg, int status, String serverError) { super(msg, status, serverError); }

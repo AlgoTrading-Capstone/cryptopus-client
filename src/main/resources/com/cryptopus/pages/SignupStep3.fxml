@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.cryptopus.pages.SignupStep3Controller"
+           styleClass="app-background"
+           stylesheets="@SignupStep3Styles.css">
+
+    <fx:include source="/com/cryptopus/shared/ServerStatusIndicator.fxml"
+                StackPane.alignment="TOP_RIGHT">
+        <StackPane.margin>
+            <Insets top="20" right="20"/>
+        </StackPane.margin>
+    </fx:include>
+
+    <VBox alignment="TOP_CENTER">
+        <padding>
+            <Insets top="50" right="50" bottom="100" left="50"/>
+        </padding>
+
+        <HBox alignment="CENTER" spacing="20">
+
+            <ImageView fitWidth="120"
+                       preserveRatio="true"
+                       cache="true">
+                <Image url="@/com/cryptopus/assets/images/cryptopus-logo-lime-md.png"/>
+            </ImageView>
+
+            <VBox alignment="CENTER_LEFT" spacing="-10">
+                <Label text="Welcome to" styleClass="heading-lg"/>
+                <Label text="Cryptopus" styleClass="login-brand-title"/>
+            </VBox>
+            <VBox.margin>
+                <Insets bottom="40"/>
+            </VBox.margin>
+        </HBox>
+        <VBox.margin>
+            <Insets bottom="50"/>
+        </VBox.margin>
+
+        <StackPane styleClass="main-card" maxWidth="800" VBox.vgrow="ALWAYS">
+
+            <VBox alignment="TOP_CENTER" spacing="20" maxWidth="700">
+                <padding>
+                    <Insets top="20" right="20" bottom="30" left="20"/>
+                </padding>
+
+                <Label text="Set up two-factor authentication" styleClass="heading-lg"/>
+
+                <HBox alignment="CENTER" spacing="3">
+                    <Label text="Step 3 of 3:" styleClass="text-lg-strong"/>
+                    <Label text="Scan the QR code with your authenticator app and enter the code." styleClass="text-lg"/>
+                </HBox>
+
+                <!-- Content slot: toggles between QR view and help view -->
+                <StackPane fx:id="contentSlot" alignment="TOP_CENTER"
+                           prefHeight="220"
+                           minHeight="220"
+                           maxHeight="220">
+
+                    <!-- QR view -->
+                    <StackPane fx:id="qrPane"
+                               styleClass="qr-slot"
+                               prefWidth="220" prefHeight="220"
+                               minWidth="220" minHeight="220"
+                               maxWidth="220" maxHeight="220">
+                        <ImageView fx:id="qrImageView"
+                                   fitWidth="220"
+                                   fitHeight="220"
+                                   preserveRatio="true"
+                                   visible="false"
+                                   managed="false"/>
+                        <VBox fx:id="loadingPane"
+                              alignment="CENTER">
+                            <Label text="Generating your QR code…" styleClass="text-md"/>
+                        </VBox>
+                    </StackPane>
+
+                    <!-- Help view -->
+                    <VBox fx:id="helpPane"
+                          alignment="TOP_LEFT"
+                          spacing="20"
+                          visible="false"
+                          managed="false">
+                        <VBox spacing="3">
+                            <Label text="Set up your authenticator app" styleClass="text-lg-strong"/>
+                            <Label text="1. Download and open an authenticator app such as Google Authenticator, Microsoft Authenticator or Authy"
+                                   styleClass="text-md" wrapText="true"/>
+                            <Label text="2. Select &quot;Add account&quot; or tap the &quot;+&quot; button, then choose &quot;Scan QR code&quot;"
+                                   styleClass="text-md" wrapText="true"/>
+                            <Label text="3. Scan the QR code"
+                                   styleClass="text-md" wrapText="true"/>
+                        </VBox>
+
+                        <Region VBox.vgrow="ALWAYS"/>
+
+                        <VBox spacing="3" alignment="CENTER">
+                            <Label text="Can’t scan the QR code? Enter the setup key manually:"
+                                   styleClass="text-md"
+                                   wrapText="true"
+                                   textAlignment="CENTER"/>
+                            <Label fx:id="otpSecretLabel"
+                                   text=""
+                                   styleClass="otp-secret"
+                                   textAlignment="CENTER"
+                                   visible="false"
+                                   managed="false"/>
+                        </VBox>
+                    </VBox>
+                </StackPane>
+
+                <HBox alignment="CENTER" spacing="3">
+                    <Label fx:id="helpPromptLabel"
+                           text="Need help or can't scan the QR code?"
+                           styleClass="text-md"/>
+                    <Hyperlink fx:id="helpToggleLink"
+                               text="Click here"
+                               styleClass="secondary-link"/>
+                </HBox>
+
+                <Label text="Enter the 6-digit code from your authenticator app:" styleClass="text-lg"/>
+
+                <HBox fx:id="codeBoxRow" alignment="CENTER" spacing="20">
+                    <VBox.margin>
+                        <Insets bottom="40"/>
+                    </VBox.margin>
+                    <TextField fx:id="codeBox1" styleClass="code-box" disable="true"/>
+                    <TextField fx:id="codeBox2" styleClass="code-box" disable="true"/>
+                    <TextField fx:id="codeBox3" styleClass="code-box" disable="true"/>
+                    <TextField fx:id="codeBox4" styleClass="code-box" disable="true"/>
+                    <TextField fx:id="codeBox5" styleClass="code-box" disable="true"/>
+                    <TextField fx:id="codeBox6" styleClass="code-box" disable="true"/>
+                </HBox>
+
+                <Label fx:id="statusLabel"
+                       text=""
+                       wrapText="true"
+                       visible="false"
+                       managed="false"
+                       styleClass="text-md-error"/>
+
+                <!-- Informational footer -->
+                <VBox spacing="3" alignment="CENTER">
+                    <Label text="Why do we use two-factor authentication?" styleClass="text-lg-strong"/>
+                    <Label text="Two-factor authentication adds an extra layer of security by requiring a time-based code from your authenticator app. This helps protect your account even if your password is compromised."
+                           styleClass="text-md"
+                           wrapText="true"
+                           textAlignment="CENTER"/>
+                </VBox>
+
+                <!-- Flexible spacer -->
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <HBox spacing="15" alignment="CENTER">
+                    <Button fx:id="backButton"
+                            text="Back to Login"
+                            prefWidth="170"
+                            contentDisplay="LEFT"
+                            alignment="CENTER_LEFT"
+                            graphicTextGap="5"
+                            styleClass="secondary-button">
+                        <graphic>
+                            <ImageView preserveRatio="true">
+                                <Image url="@/com/cryptopus/assets/icons/arrow-back-dark1.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="nextButton"
+                            text="Next Step"
+                            prefWidth="170"
+                            contentDisplay="RIGHT"
+                            alignment="CENTER_RIGHT"
+                            graphicTextGap="5"
+                            disable="true"
+                            styleClass="primary-button">
+                        <graphic>
+                            <ImageView preserveRatio="true">
+                                <Image url="@/com/cryptopus/assets/icons/arrow-forward-dark1.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+
+        </StackPane>
+    </VBox>
+</StackPane>

@@ -30,13 +30,13 @@
     <fx:include source="/com/cryptopus/shared/VersionIndicator.fxml"
                 StackPane.alignment="BOTTOM_LEFT">
         <StackPane.margin>
-            <Insets bottom="16" left="16"/>
+            <Insets bottom="20" left="20"/>
         </StackPane.margin>
     </fx:include>
 
     <VBox alignment="TOP_CENTER">
         <padding>
-            <Insets top="50" right="20" bottom="20" left="20"/>
+            <Insets top="50" right="50" bottom="100" left="50"/>
         </padding>
 
         <ImageView fitWidth="250"

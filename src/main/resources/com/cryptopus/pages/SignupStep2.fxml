@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.cryptopus.pages.SignupStep2Controller"
+           styleClass="app-background"
+           stylesheets="@SignupStep2Styles.css">
+
+    <fx:include source="/com/cryptopus/shared/ServerStatusIndicator.fxml"
+                StackPane.alignment="TOP_RIGHT">
+        <StackPane.margin>
+            <Insets top="20" right="20"/>
+        </StackPane.margin>
+    </fx:include>
+
+    <VBox alignment="TOP_CENTER">
+        <padding>
+            <Insets top="50" right="50" bottom="100" left="50"/>
+        </padding>
+
+        <HBox alignment="CENTER" spacing="20">
+
+            <ImageView fitWidth="120"
+                       preserveRatio="true"
+                       cache="true">
+                <Image url="@/com/cryptopus/assets/images/cryptopus-logo-lime-md.png"/>
+            </ImageView>
+
+            <VBox alignment="CENTER_LEFT" spacing="-10">
+                <Label text="Welcome to" styleClass="heading-lg"/>
+                <Label text="Cryptopus" styleClass="login-brand-title"/>
+            </VBox>
+            <VBox.margin>
+                <Insets bottom="40"/>
+            </VBox.margin>
+        </HBox>
+        <VBox.margin>
+            <Insets bottom="50"/>
+        </VBox.margin>
+
+        <StackPane styleClass="main-card" maxWidth="800" VBox.vgrow="ALWAYS">
+
+            <VBox alignment="TOP_CENTER" spacing="20" maxWidth="700">
+                <padding>
+                    <Insets top="20" right="20" bottom="30" left="20"/>
+                </padding>
+
+                <Label text="Verify your email" styleClass="heading-lg"/>
+
+                <HBox alignment="CENTER" spacing="3">
+                    <Label text="Step 2 of 3:" styleClass="text-lg-strong"/>
+                    <Label text="Confirm the email address on your account." styleClass="text-lg"/>
+                </HBox>
+
+                <HBox alignment="CENTER" spacing="3">
+                    <Label text="Enter the 6-character verification code sent to your email:" styleClass="text-md"/>
+                    <Label fx:id="emailLabel" text="" styleClass="text-md-strong"/>
+                </HBox>
+
+                <HBox fx:id="codeBoxRow" alignment="CENTER" spacing="20">
+                    <VBox.margin>
+                        <Insets top="40" bottom="40"/>
+                    </VBox.margin>
+                    <TextField fx:id="codeBox1" styleClass="code-box"/>
+                    <TextField fx:id="codeBox2" styleClass="code-box"/>
+                    <TextField fx:id="codeBox3" styleClass="code-box"/>
+                    <TextField fx:id="codeBox4" styleClass="code-box"/>
+                    <TextField fx:id="codeBox5" styleClass="code-box"/>
+                    <TextField fx:id="codeBox6" styleClass="code-box"/>
+                </HBox>
+
+                <VBox spacing="3">
+                    <HBox alignment="CENTER" spacing="3">
+                        <Label text="Code expires in:" styleClass="text-lg"/>
+                        <Label fx:id="timerLabel" text="10:00" styleClass="text-lg-strong"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER" spacing="3">
+                        <Label text="Didn't receive the code?" styleClass="text-md"/>
+                        <Hyperlink fx:id="resendLink" text="Click here to resend" styleClass="secondary-link"/>
+                    </HBox>
+                </VBox>
+
+                <Label fx:id="statusLabel"
+                       text=""
+                       wrapText="true"
+                       visible="false"
+                       managed="false"
+                       styleClass="text-md-error"/>
+
+                <!-- Informational footer -->
+                <VBox spacing="3" alignment="CENTER">
+                    <Label text="Why do we verify your email?" styleClass="text-lg-strong"/>
+                    <Label text="Verifying your email helps us confirm that you are the rightful owner of this account and adds an extra layer of protection against unauthorized access. It also ensures that important alerts, account updates and trading notifications are delivered to the correct address."
+                           styleClass="text-md"
+                           wrapText="true"
+                           textAlignment="CENTER"/>
+                </VBox>
+
+                <!-- Flexible spacer -->
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <HBox spacing="15" alignment="CENTER">
+                    <Button fx:id="backButton"
+                            text="Back to Login"
+                            prefWidth="170"
+                            contentDisplay="LEFT"
+                            alignment="CENTER_LEFT"
+                            graphicTextGap="5"
+                            styleClass="secondary-button">
+                        <graphic>
+                            <ImageView preserveRatio="true">
+                                <Image url="@/com/cryptopus/assets/icons/arrow-back-dark1.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="nextButton"
+                            text="Next Step"
+                            prefWidth="170"
+                            contentDisplay="RIGHT"
+                            alignment="CENTER_RIGHT"
+                            graphicTextGap="5"
+                            disable="true"
+                            styleClass="primary-button">
+                        <graphic>
+                            <ImageView preserveRatio="true">
+                                <Image url="@/com/cryptopus/assets/icons/arrow-forward-dark1.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+
+        </StackPane>
+    </VBox>
+</StackPane>
