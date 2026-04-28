@@ -134,13 +134,64 @@ public class LoginController {
                 }));
     }
 
+    /**
+     * Routes the user based on their server-reported registration state:
+     * <ul>
+     *   <li>{@code email_verified=false} → Signup Step 2 (Verify Email).
+     *       The client also kicks off a {@code resend-verification-email}
+     *       in the background so the user lands on a fresh code without
+     *       having to ask for one.</li>
+     *   <li>{@code email_verified=true, otp_verified=false} → Signup Step 3
+     *       (OTP Setup). The verified email is forwarded so Step 3 can call
+     *       {@code /api/auth/setup-otp} immediately.</li>
+     *   <li>{@code email_verified=true, otp_verified=true} → switch to the
+     *       OTP-verification pane on this same screen, using the
+     *       {@code temporary_session_id} that {@link AuthService} already
+     *       stored in {@link SessionManager}.</li>
+     * </ul>
+     */
     private void onLoginSuccess(LoginResponse resp) {
-        if (resp == null || resp.getTemporarySessionId() == null) {
+        if (resp == null) {
+            showStatus(loginStatusLabel, "Unexpected response from server.");
+            return;
+        }
+
+        final String email = safeTrim(emailField.getText());
+
+        if (!resp.isEmailVerified()) {
+            // Defensive: server should never send this combo, but if it does,
+            // email-not-verified takes precedence regardless of otp_verified.
+            primeResendAndGoToStep2(email);
+            return;
+        }
+
+        if (!resp.isOtpVerified()) {
+            // Email verified but OTP setup never finished — finish signup.
+            Router.get().goTo(Page.SIGNUP_STEP_3,
+                    (SignupStep3Controller c) -> c.setEmail(email));
+            return;
+        }
+
+        // Fully registered: backend issued a temporary_session_id; verify OTP.
+        if (resp.getTemporarySessionId() == null) {
             showStatus(loginStatusLabel, "Unexpected response from server.");
             return;
         }
         // temp session id already stored by AuthService; just switch UI.
         switchToOtp();
+    }
+
+    /**
+     * Fire-and-forget resend so the user gets a fresh code as soon as they
+     * land on Step 2. Errors are intentionally swallowed: Step 2 has its own
+     * countdown / manual Resend link the user can fall back on.
+     */
+    private void primeResendAndGoToStep2(String email) {
+        if (email != null && !email.isBlank()) {
+            auth.resendVerificationEmail(email).exceptionally(ex -> null);
+        }
+        Router.get().goTo(Page.SIGNUP_STEP_2,
+                (SignupStep2Controller c) -> c.setEmail(email));
     }
 
     // -----------------------------------------------------------------------

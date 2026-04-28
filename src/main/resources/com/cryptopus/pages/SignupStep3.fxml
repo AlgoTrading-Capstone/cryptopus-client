@@ -134,7 +134,7 @@
 
                 <HBox fx:id="codeBoxRow" alignment="CENTER" spacing="20">
                     <VBox.margin>
-                        <Insets bottom="40"/>
+                        <Insets bottom="20"/>
                     </VBox.margin>
                     <TextField fx:id="codeBox1" styleClass="code-box" disable="true"/>
                     <TextField fx:id="codeBox2" styleClass="code-box" disable="true"/>

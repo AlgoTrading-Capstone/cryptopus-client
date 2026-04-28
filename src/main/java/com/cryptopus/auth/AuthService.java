@@ -8,6 +8,8 @@ import com.cryptopus.auth.dto.RefreshRequest;
 import com.cryptopus.auth.dto.RefreshResponse;
 import com.cryptopus.auth.dto.RegisterRequest;
 import com.cryptopus.auth.dto.RegisterResponse;
+import com.cryptopus.auth.dto.ResendVerificationRequest;
+import com.cryptopus.auth.dto.ResendVerificationResponse;
 import com.cryptopus.auth.dto.SetupOtpRequest;
 import com.cryptopus.auth.dto.SetupOtpResponse;
 import com.cryptopus.auth.dto.VerifyEmailRequest;
@@ -127,18 +129,22 @@ public final class AuthService {
     /**
      * Requests a fresh verification code for the given email.
      *
-     * <p>TODO(signup-step-2): the backend endpoint for resending a
-     * verification email has not been specified yet. This stub completes
-     * successfully so the UI can wire its cooldown / timer-reset flow, and
-     * will be replaced with a real {@code api.post(...)} call once the
-     * endpoint contract is finalized.</p>
+     * <p>Used both from Signup Step 2 (manual "Resend code" link) and from
+     * the Login flow when the backend reports {@code email_verified=false}
+     * — in that case the client transparently primes a new code before
+     * navigating the user to Step 2 so they don't have to ask for one
+     * themselves.</p>
+     *
+     * <p>Server errors (404 no-pending-registration, 409 already-verified,
+     * 429 cooldown-active, etc.) are surfaced to the caller as the standard
+     * {@link ApiException} subtypes; cooldown UX is the caller's
+     * responsibility.</p>
      */
-    public CompletableFuture<Void> resendVerificationEmail(String email) {
-        // Intentional no-op placeholder. Swap for:
-        //   return api.post(ApiConfig.AUTH_RESEND_VERIFICATION_EMAIL,
-        //                   new ResendVerificationRequest(email),
-        //                   Void.class, false);
-        return CompletableFuture.completedFuture(null);
+    public CompletableFuture<ResendVerificationResponse> resendVerificationEmail(String email) {
+        return api.post(ApiConfig.AUTH_RESEND_VERIFICATION_EMAIL,
+                        new ResendVerificationRequest(email),
+                        ResendVerificationResponse.class,
+                        false);
     }
 
     /**
