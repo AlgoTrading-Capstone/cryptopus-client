@@ -55,10 +55,10 @@ public class Main extends Application {
 
         // --- DEV SHORTCUT ---
 
-        //Router.get().goTo(Page.LOGIN);
+        Router.get().goTo(Page.LOGIN);
         //Router.get().goTo(Page.SIGNUP_STEP_1);
         //Router.get().goTo(Page.SIGNUP_STEP_2, (SignupStep2Controller c) -> c.setEmail("dev@cryptopus.local"));
-        Router.get().goTo(Page.SIGNUP_STEP_3, (SignupStep3Controller c) -> c.setEmail("dev@cryptopus.local"));
+        //Router.get().goTo(Page.SIGNUP_STEP_3, (SignupStep3Controller c) -> c.setEmail("dev@cryptopus.local"));
 
         // Set window title
         primaryStage.setTitle("Cryptopus");

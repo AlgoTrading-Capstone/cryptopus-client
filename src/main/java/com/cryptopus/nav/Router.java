@@ -1,8 +1,10 @@
 package com.cryptopus.nav;
 
+import com.cryptopus.shared.modal.AppShell;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -34,6 +36,7 @@ public final class Router {
     }
 
     private Scene scene;
+    private AppShell shell;
 
     private Router() {
     }
@@ -41,10 +44,40 @@ public final class Router {
     /**
      * Binds the router to the primary {@link Scene}. Must be called once,
      * before any call to {@link #goTo(Page)}.
+     *
+     * <p>The router internally constructs an {@link AppShell} and installs
+     * it as the scene root so that page navigations swap the shell's content
+     * layer (preserving the modal overlay layer between transitions).</p>
      */
     public Router init(Scene scene) {
         this.scene = Objects.requireNonNull(scene, "scene");
+        this.shell = new AppShell();
+        scene.setRoot(shell);
         return this;
+    }
+
+    /**
+     * Returns the modal overlay layer owned by the {@link AppShell}. Used by
+     * {@code ModalService} to attach/detach the active modal dialog.
+     */
+    public StackPane modalLayer() {
+        ensureInitialized();
+        return shell.modalLayer();
+    }
+
+    /**
+     * Returns the content layer owned by the {@link AppShell}. Used by
+     * {@code ModalService} to apply blur / disable the page behind a modal.
+     */
+    public StackPane contentHolder() {
+        ensureInitialized();
+        return shell.contentHolder();
+    }
+
+    private void ensureInitialized() {
+        if (scene == null || shell == null) {
+            throw new IllegalStateException("Router.init(scene) must be called first.");
+        }
     }
 
     /**
@@ -74,9 +107,7 @@ public final class Router {
     public <C> void goTo(Page page, Consumer<C> onControllerReady) {
         Objects.requireNonNull(page, "page");
         Objects.requireNonNull(onControllerReady, "onControllerReady");
-        if (scene == null) {
-            throw new IllegalStateException("Router.init(scene) must be called before goTo(...).");
-        }
+        ensureInitialized();
         String path = page.fxmlPath();
         if (path == null) {
             throw new IllegalStateException(
@@ -91,7 +122,7 @@ public final class Router {
             @SuppressWarnings("unchecked")
             C controller = (C) loader.getController();
             onControllerReady.accept(controller);
-            scene.setRoot(root);
+            shell.contentHolder().getChildren().setAll(root);
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to load FXML for page " + page, e);
         }

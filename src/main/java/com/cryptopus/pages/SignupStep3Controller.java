@@ -6,6 +6,8 @@ import com.cryptopus.auth.dto.VerifyOtpSetupResponse;
 import com.cryptopus.nav.Page;
 import com.cryptopus.nav.Router;
 import com.cryptopus.net.ApiException;
+import com.cryptopus.shared.modal.ModalService;
+import com.cryptopus.shared.modal.ModalType;
 import com.cryptopus.util.QrCodeGenerator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -275,11 +277,31 @@ public class SignupStep3Controller {
     private void handleVerifySuccess(VerifyOtpSetupResponse resp) {
         locked = true;
         setBoxesDisabled(true);
-        // TODO(post-signup): Router.get().goTo(Page.<dashboard or login>, ...);
-        String msg = (resp != null && resp.getMessage() != null && !resp.getMessage().isBlank())
-                ? resp.getMessage()
-                : "OTP enabled successfully.";
-        showStatus(msg + " You can now log in.", false);
+        clearStatus();
+        showSuccessModal();
+    }
+
+    /**
+     * Opens the post-signup success modal. Extracted so it can be invoked
+     * directly during design iteration (see {@code initialize()}).
+     */
+    private void showSuccessModal() {
+        ModalService.get().show(
+                "Registration completed successfully!",
+                "Your account is now secured. We recommend connecting your Kraken trading account next so you can continue the setup process.",
+                "check-circle-lime",
+                ModalType.SUCCESS,
+                "Connect Kraken",
+                () -> {
+                    // TODO: navigate to the Kraken connection page once it exists.
+                    ModalService.get().close();
+                },
+                "Back to Login",
+                () -> {
+                    ModalService.get().close();
+                    Router.get().goTo(Page.LOGIN);
+                }
+        );
     }
 
     private void handleVerifyFailure(Throwable err) {
